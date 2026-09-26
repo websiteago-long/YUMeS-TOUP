@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YUMeS - TopUp Mini App</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-color: #1f2937;
+            --banner-bg: #e2e8f0;
+            --msg-bg: #d8b4fe;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+            --card-3d-transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+        }
+
+        [data-theme="dark"] {
+            --bg-gradient: linear-gradient(135deg, #0f172a 1e-1%, #1e1b4b 100%);
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --text-color: #f8fafc;
+            --banner-bg: #334155;
+            --msg-bg: #6b21a8;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Phone Container 3D Look */
+        .app-container {
+            width: 100%;
+            max-width: 380px;
+            height: 720px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 35px;
+            box-shadow: var(--shadow);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+            transform: var(--card-3d-transform);
+            transition: transform 0.1s ease-out, background 0.3s ease;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .app-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-color);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .icon-btn {
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Main Content */
+        .content {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        /* Text Message Bar */
+        .text-message {
+            background-color: var(--msg-bg);
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Banner */
+        .banner {
+            background-color: var(--banner-bg);
+            color: var(--text-color);
+            text-align: center;
+            padding: 25px 10px;
+            border-radius: 18px;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        /* Grid Cards 3D Effect */
+        .grid-menu {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 5px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+            border-color: #3b82f6;
+        }
+
+        /* Roblox Card Style specific matching image */
+        .roblox-icon {
+            width: 50px;
+            height: 50px;
+            background: #000;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .roblox-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .card-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .empty-card {
+            background: rgba(200, 200, 200, 0.15);
+            border: 2px dashed rgba(150, 150, 150, 0.3);
+            min-height: 130px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .empty-card:hover {
+            background: rgba(200, 200, 200, 0.3);
+        }
+
+        /* Instructions for GitHub */
+    </style>
+</head>
+<body data-theme="dark">
+
+    <div class="app-container" id="appContainer">
+        <!-- Header -->
+        <header>
+            <div class="app-title">YUMeS - TopUp</div>
+            <div class="header-icons">
+                <button class="icon-btn" id="themeToggle" title="ប្ដូរLight/Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="icon-btn" title="Menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Body Content -->
+        <div class="content">
+            <div class="text-message">Text message</div>
+            <div class="banner">Banner</div>
+
+            <!-- Grid options -->
+            <div class="grid-menu">
+                <!-- Roblox Topup Card -->
+                <div class="card" onclick="alert('ចូលទៅកាន់ទំព័រ Roblox Topup!')">
+                    <div class="roblox-icon">
+                        <!-- Roblox Logo SVG -->
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M9 9l6 6"></path><path d="M15 9l-6 6"></path></svg>
+                    </div>
+                    <div class="card-title">Roblox<br>Topup</div>
+                </div>
+
+                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
+                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
+                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // មុខងារប្ដូរ Light / Dark Mode
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const bodyElement = document.body;
+        const iconElement = themeToggleBtn.querySelector('i');
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (bodyElement.getAttribute('data-theme') === 'dark') {
+                bodyElement.setAttribute('data-theme', 'light');
+                iconElement.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                bodyElement.setAttribute('data-theme', 'dark');
+                iconElement.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+
+        // បន្ថែម εφελ (Effect 3D Moving) ពេលយក Mouse អូសលើកាត Container
+        const container = document.getElementById('appContainer');
+
+        container.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            // កំណត់มุมបង្វិល 3D
+            container.style.transform = `perspective(1000px) rotateX(${-y / 20}deg) rotateY(${x / 20}deg)`;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+            container.style.transition = 'transform 0.5s ease';
+        });
+
+        container.addEventListener('mouseenter', () => {
+            container.style.transition = 'transform 0.1s ease-out';
+        });
+    </script>
+</body>
+</html>
