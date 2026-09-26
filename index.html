@@ -11,21 +11,24 @@
     <style>
         :root {
             --bg-gradient: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.95);
             --text-color: #1f2937;
             --banner-bg: #e2e8f0;
-            --msg-bg: #d8b4fe;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
-            --card-3d-transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
+            --msg-bg: #9333ea;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --modal-bg: #ffffff;
+            --input-bg: #f3f4f6;
         }
 
         [data-theme="dark"] {
-            --bg-gradient: linear-gradient(135deg, #0f172a 1e-1%, #1e1b4b 100%);
-            --card-bg: rgba(30, 41, 59, 0.85);
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            --card-bg: #1e293b;
             --text-color: #f8fafc;
             --banner-bg: #334155;
-            --msg-bg: #6b21a8;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.6);
+            --msg-bg: #7e22ce;
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --modal-bg: #0f172a;
+            --input-bg: #334155;
         }
 
         * {
@@ -42,25 +45,28 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
-        /* Phone Container 3D Look */
+        /* App Container */
         .app-container {
             width: 100%;
-            max-width: 380px;
-            height: 720px;
+            max-width: 420px;
+            min-height: 100vh;
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 35px;
-            box-shadow: var(--shadow);
-            border: 2px solid rgba(255, 255, 255, 0.2);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
-            transform: var(--card-3d-transform);
-            transition: transform 0.1s ease-out, background 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        @media (min-width: 480px) {
+            .app-container {
+                min-height: 800px;
+                border-radius: 25px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
         }
 
         /* Header */
@@ -68,50 +74,46 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            background: transparent;
         }
 
         .app-title {
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--text-color);
         }
 
         .header-icons {
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
 
         .icon-btn {
-            background: rgba(0, 0, 0, 0.1);
+            background: rgba(150, 150, 150, 0.15);
             border: none;
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
             color: var(--text-color);
-            font-size: 0.9rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
+            font-size: 0.95rem;
         }
 
-        .icon-btn:hover {
-            transform: scale(1.1);
+        .icon-btn:active {
+            transform: scale(0.95);
         }
 
         /* Main Content */
         .content {
-            padding: 15px;
+            padding: 0 20px 20px 20px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
             flex-grow: 1;
-            overflow-y: auto;
         }
 
         /* Text Message Bar */
@@ -119,11 +121,10 @@
             background-color: var(--msg-bg);
             color: #fff;
             text-align: center;
-            padding: 8px;
-            border-radius: 20px;
+            padding: 12px;
+            border-radius: 14px;
             font-size: 0.85rem;
             font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         /* Banner */
@@ -131,59 +132,44 @@
             background-color: var(--banner-bg);
             color: var(--text-color);
             text-align: center;
-            padding: 25px 10px;
-            border-radius: 18px;
+            padding: 30px 10px;
+            border-radius: 14px;
             font-weight: 600;
             font-size: 1rem;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05), 0 5px 15px rgba(0,0,0,0.08);
         }
 
-        /* Grid Cards 3D Effect */
+        /* Grid Cards */
         .grid-menu {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 15px;
-            margin-top: 5px;
         }
 
         .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px 10px;
+            background: rgba(150, 150, 150, 0.05);
+            border-radius: 16px;
+            padding: 24px 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             gap: 12px;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            border: 1px solid rgba(150, 150, 150, 0.15);
         }
 
-        .card:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
-            border-color: #3b82f6;
+        .card:active {
+            opacity: 0.8;
         }
 
-        /* Roblox Card Style specific matching image */
         .roblox-icon {
-            width: 50px;
-            height: 50px;
+            width: 48px;
+            height: 48px;
             background: #000;
             border-radius: 12px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .roblox-icon img {
-            width: 30px;
-            height: 30px;
         }
 
         .card-title {
@@ -194,32 +180,167 @@
         }
 
         .empty-card {
-            background: rgba(200, 200, 200, 0.15);
             border: 2px dashed rgba(150, 150, 150, 0.3);
             min-height: 130px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .empty-card:hover {
-            background: rgba(200, 200, 200, 0.3);
+            background: transparent;
         }
 
-        /* Instructions for GitHub */
+        /* Modal Popup Styles */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--modal-bg);
+            width: 90%;
+            max-width: 340px;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            color: var(--text-color);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+
+        /* Tab Switcher */
+        .tab-buttons {
+            display: flex;
+            background: var(--input-bg);
+            border-radius: 10px;
+            padding: 4px;
+            gap: 5px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .tab-btn.active {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(150,150,150,0.3);
+            background: var(--input-bg);
+            color: var(--text-color);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .submit-btn {
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .telegram-contact {
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .telegram-contact:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body data-theme="dark">
 
-    <div class="app-container" id="appContainer">
+    <div class="app-container">
         <!-- Header -->
         <header>
             <div class="app-title">YUMeS - TopUp</div>
             <div class="header-icons">
-                <button class="icon-btn" id="themeToggle" title="ប្ដូរLight/Dark Mode">
+                <button class="icon-btn" id="themeToggle" title="ប្ដូរ Light/Dark Mode">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <button class="icon-btn" title="Menu">
+                <!-- ប៊ូតុងត្រេបី (Menu) -->
+                <button class="icon-btn" id="menuToggle" title="Menu">
                     <i class="fa-solid fa-bars"></i>
                 </button>
             </div>
@@ -227,7 +348,7 @@
 
         <!-- Body Content -->
         <div class="content">
-            <div class="text-message">Text message</div>
+            <div class="text-message">សូមស្វាគមន៍មកកាន់ YUMeS - TopUP 24/7</div>
             <div class="banner">Banner</div>
 
             <!-- Grid options -->
@@ -235,15 +356,61 @@
                 <!-- Roblox Topup Card -->
                 <div class="card" onclick="alert('ចូលទៅកាន់ទំព័រ Roblox Topup!')">
                     <div class="roblox-icon">
-                        <!-- Roblox Logo SVG -->
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M9 9l6 6"></path><path d="M15 9l-6 6"></path></svg>
+                        <svg viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M9 9l6 6"></path><path d="M15 9l-6 6"></path></svg>
                     </div>
-                    <div class="card-title">Roblox<br>Topup</div>
+                    <div class="card-title">Roblox Topup</div>
                 </div>
 
                 <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
                 <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
                 <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
+            </div>
+        </div>
+
+        <!-- Modal Popup សម្រាប់ ចូលគណនី និង បង្កើតគណនី -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="modalTitle">ចូលគណនី</span>
+                    <button class="close-modal" id="closeModal">&times;</button>
+                </div>
+
+                <!-- Tab Switcher -->
+                <div class="tab-buttons">
+                    <button class="tab-btn active" id="loginTabBtn">ចូលគណនី</button>
+                    <button class="tab-btn" id="signupTabBtn">បង្កើតគណនី</button>
+                </div>
+
+                <!-- Login Form -->
+                <form class="form-container" id="loginForm" onsubmit="event.preventDefault(); alert('ចូលគណនីជោគជ័យ!');">
+                    <div class="form-group">
+                        <label>អ៊ុយតេ (Username ឬ Email)</label>
+                        <input type="text" placeholder="បញ្ចូលឈ្មោះគណនី" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ពាក្យសម្ងាត់ (Password)</label>
+                        <input type="password" placeholder="បញ្ចូលពាក្យសម្ងាត់" required>
+                    </div>
+                    <button type="submit" class="submit-btn">ចូលគណនី</button>
+                </form>
+
+                <!-- Signup Form -->
+                <form class="form-container hidden" id="signupForm" onsubmit="event.preventDefault(); alert('បង្កើតគណនីជោគជ័យ!');">
+                    <div class="form-group">
+                        <label>ឈ្មោះអ្នកប្រើប្រាស់ (Username)</label>
+                        <input type="text" placeholder="បង្កើតឈ្មោះគណនី" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ពាក្យសម្ងាត់ (Password)</label>
+                        <input type="password" placeholder="បង្កើតពាក្យសម្ងាត់" required>
+                    </div>
+                    <button type="submit" class="submit-btn">បង្កើតគណនី</button>
+                </form>
+
+                <!-- Telegram Contact -->
+                <a href="https://t.me/longzzsmmdigitall" target="_blank" class="telegram-contact">
+                    <i class="fa-brands fa-telegram"></i> ទាក់ទងអេតមីន: @longzzsmmdigitall
+                </a>
             </div>
         </div>
     </div>
@@ -264,25 +431,46 @@
             }
         });
 
-        // បន្ថែម εφελ (Effect 3D Moving) ពេលយក Mouse អូសលើកាត Container
-        const container = document.getElementById('appContainer');
+        // មុខងារបើក/បិទ Modal Popup ពេលចុចសញ្ញាត្រេបី
+        const menuToggle = document.getElementById('menuToggle');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
 
-        container.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            // កំណត់มุมបង្វិល 3D
-            container.style.transform = `perspective(1000px) rotateX(${-y / 20}deg) rotateY(${x / 20}deg)`;
+        menuToggle.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
         });
 
-        container.addEventListener('mouseleave', () => {
-            container.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-            container.style.transition = 'transform 0.5s ease';
+        closeModal.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
         });
 
-        container.addEventListener('mouseenter', () => {
-            container.style.transition = 'transform 0.1s ease-out';
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
+
+        // មុខងារប្ដូររវាង Tab ចូលគណនី និង បង្កើតគណនី
+        const loginTabBtn = document.getElementById('loginTabBtn');
+        const signupTabBtn = document.getElementById('signupTabBtn');
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        const modalTitle = document.getElementById('modalTitle');
+
+        loginTabBtn.addEventListener('click', () => {
+            loginTabBtn.classList.add('active');
+            signupTabBtn.classList.remove('active');
+            loginForm.classList.remove('hidden');
+            signupForm.classList.add('hidden');
+            modalTitle.innerText = "ចូលគណនី";
+        });
+
+        signupTabBtn.addEventListener('click', () => {
+            signupTabBtn.classList.add('active');
+            loginTabBtn.classList.remove('active');
+            signupForm.classList.remove('hidden');
+            loginForm.classList.add('hidden');
+            modalTitle.innerText = "បង្កើតគណនី";
         });
     </script>
 </body>
