@@ -211,7 +211,7 @@
         .modal-content {
             background: var(--modal-bg);
             width: 90%;
-            max-width: 340px;
+            max-width: 360px;
             border-radius: 20px;
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -234,7 +234,6 @@
             align-items: center;
             font-weight: 700;
             font-size: 1.1rem;
-            margin-bottom: 5px;
         }
 
         .close-modal {
@@ -245,38 +244,6 @@
             cursor: pointer;
         }
 
-        /* Tab Switcher */
-        .tab-buttons {
-            display: flex;
-            background: var(--input-bg);
-            border-radius: 10px;
-            padding: 4px;
-            gap: 5px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            background: none;
-            border: none;
-            padding: 8px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text-color);
-            cursor: pointer;
-            border-radius: 8px;
-        }
-
-        .tab-btn.active {
-            background: #3b82f6;
-            color: #fff;
-        }
-
-        .form-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
         .form-group {
             display: flex;
             flex-direction: column;
@@ -284,7 +251,7 @@
         }
 
         .form-group label {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 600;
         }
 
@@ -298,15 +265,43 @@
             outline: none;
         }
 
-        .submit-btn {
+        /* Robux Price List */
+        .robux-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .robux-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--input-bg);
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(150,150,150,0.2);
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .robux-item:hover {
+            border-color: #3b82f6;
+        }
+
+        .robux-info {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .robux-price {
             background: #3b82f6;
             color: #fff;
-            border: none;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 5px 12px;
+            border-radius: 8px;
             font-weight: 600;
-            cursor: pointer;
-            margin-top: 5px;
+            font-size: 0.9rem;
         }
 
         .telegram-contact {
@@ -324,9 +319,44 @@
             text-decoration: underline;
         }
 
-        .hidden {
-            display: none;
+        /* Tab Switcher for Menu Auth */
+        .tab-buttons {
+            display: flex;
+            background: var(--input-bg);
+            border-radius: 10px;
+            padding: 4px;
+            gap: 5px;
         }
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .tab-btn.active {
+            background: #3b82f6;
+            color: #fff;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .submit-btn {
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .hidden { display: none; }
     </style>
 </head>
 <body data-theme="dark">
@@ -339,7 +369,6 @@
                 <button class="icon-btn" id="themeToggle" title="ប្ដូរ Light/Dark Mode">
                     <i class="fa-solid fa-moon"></i>
                 </button>
-                <!-- ប៊ូតុងត្រេបី (Menu) -->
                 <button class="icon-btn" id="menuToggle" title="Menu">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -353,70 +382,96 @@
 
             <!-- Grid options -->
             <div class="grid-menu">
-                <!-- Roblox Topup Card -->
-                <div class="card" onclick="alert('ចូលទៅកាន់ទំព័រ Roblox Topup!')">
+                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
+                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
+                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
+                
+                <!-- Roblox Topup Card (ដាក់នៅខាងក្រោមគេ) -->
+                <div class="card" id="robloxCardBtn">
                     <div class="roblox-icon">
                         <svg viewBox="0 0 24 24" width="22" height="22" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M9 9l6 6"></path><path d="M15 9l-6 6"></path></svg>
                     </div>
                     <div class="card-title">Roblox Topup</div>
                 </div>
-
-                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
-                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
-                <div class="card empty-card" onclick="alert('មុខងារនឹងរៀបចំពេលក្រោយ!')"></div>
             </div>
         </div>
 
-        <!-- Modal Popup សម្រាប់ ចូលគណនី និង បង្កើតគណនី -->
-        <div class="modal-overlay" id="modalOverlay">
+        <!-- Modal Popup សម្រាប់ Roblox Topup -->
+        <div class="modal-overlay" id="robuxModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span>តារាងតម្លៃ Roblox Topup</span>
+                    <button class="close-modal" id="closeRobuxModal">&times;</button>
+                </div>
+
+                <!-- ប្រអប់បញ្ចូល Telegram Username -->
+                <div class="form-group">
+                    <label>Telegram Username របស់អ្នក (ឧ. @username)</label>
+                    <input type="text" id="tgUsernameInput" placeholder="បញ្ចូល Telegram Username">
+                </div>
+
+                <div style="font-size: 0.85rem; font-weight: 600; margin-top: 5px;">ជ្រើសរើសកញ្ចប់ Robux៖</div>
+
+                <!-- តារាងតម្លៃ Robux -->
+                <div class="robux-list">
+                    <div class="robux-item" onclick="buyRobux('80 Robux', '1$')">
+                        <div class="robux-info">💎 80 Robux</div>
+                        <div class="robux-price">1$</div>
+                    </div>
+                    <div class="robux-item" onclick="buyRobux('160 Robux', '2$')">
+                        <div class="robux-info">💎 160 Robux</div>
+                        <div class="robux-price">2$</div>
+                    </div>
+                </div>
+
+                <a href="https://t.me/longzzsmmdigitall" target="_blank" class="telegram-contact">
+                    <i class="fa-brands fa-telegram"></i> ទាក់ទងអេតមីន: @longzzsmmdigitall
+                </a>
+            </div>
+        </div>
+
+        <!-- Modal Popup សម្រាប់ Menu (Auth) -->
+        <div class="modal-overlay" id="authModal">
             <div class="modal-content">
                 <div class="modal-header">
                     <span id="modalTitle">ចូលគណនី</span>
-                    <button class="close-modal" id="closeModal">&times;</button>
+                    <button class="close-modal" id="closeAuthModal">&times;</button>
                 </div>
-
-                <!-- Tab Switcher -->
                 <div class="tab-buttons">
                     <button class="tab-btn active" id="loginTabBtn">ចូលគណនី</button>
                     <button class="tab-btn" id="signupTabBtn">បង្កើតគណនី</button>
                 </div>
-
-                <!-- Login Form -->
                 <form class="form-container" id="loginForm" onsubmit="event.preventDefault(); alert('ចូលគណនីជោគជ័យ!');">
                     <div class="form-group">
-                        <label>អ៊ុយតេ (Username ឬ Email)</label>
-                        <input type="text" placeholder="បញ្ចូលឈ្មោះគណនី" required>
+                        <label>ឈ្មោះអ្នកប្រើប្រាស់</label>
+                        <input type="text" placeholder="បញ្ចូលឈ្មោះ" required>
                     </div>
                     <div class="form-group">
-                        <label>ពាក្យសម្ងាត់ (Password)</label>
-                        <input type="password" placeholder="បញ្ចូលពាក្យសម្ងាត់" required>
+                        <label>ពាក្យសម្ងាត់</label>
+                        <input type="password" placeholder="ពាក្យសម្ងាត់" required>
                     </div>
                     <button type="submit" class="submit-btn">ចូលគណនី</button>
                 </form>
-
-                <!-- Signup Form -->
                 <form class="form-container hidden" id="signupForm" onsubmit="event.preventDefault(); alert('បង្កើតគណនីជោគជ័យ!');">
                     <div class="form-group">
-                        <label>ឈ្មោះអ្នកប្រើប្រាស់ (Username)</label>
-                        <input type="text" placeholder="បង្កើតឈ្មោះគណនី" required>
+                        <label>ឈ្មោះអ្នកប្រើប្រាស់</label>
+                        <input type="text" placeholder="បង្កើតឈ្មោះ" required>
                     </div>
                     <div class="form-group">
-                        <label>ពាក្យសម្ងាត់ (Password)</label>
+                        <label>ពាក្យសម្ងាត់</label>
                         <input type="password" placeholder="បង្កើតពាក្យសម្ងាត់" required>
                     </div>
                     <button type="submit" class="submit-btn">បង្កើតគណនី</button>
                 </form>
-
-                <!-- Telegram Contact -->
                 <a href="https://t.me/longzzsmmdigitall" target="_blank" class="telegram-contact">
-                    <i class="fa-brands fa-telegram"></i> ទាក់ទងអេតមីន: @longzzsmmdigitall
+                    <i class="fa-brands fa-telegram"></i> @longzzsmmdigitall
                 </a>
             </div>
         </div>
     </div>
 
     <script>
-        // មុខងារប្ដូរ Light / Dark Mode
+        // Dark / Light Mode Toggle
         const themeToggleBtn = document.getElementById('themeToggle');
         const bodyElement = document.body;
         const iconElement = themeToggleBtn.querySelector('i');
@@ -431,26 +486,46 @@
             }
         });
 
-        // មុខងារបើក/បិទ Modal Popup ពេលចុចសញ្ញាត្រេបី
+        // Roblox Topup Modal Script
+        const robloxCardBtn = document.getElementById('robloxCardBtn');
+        const robuxModal = document.getElementById('robuxModal');
+        const closeRobuxModal = document.getElementById('closeRobuxModal');
+
+        robloxCardBtn.addEventListener('click', () => {
+            robuxModal.classList.add('active');
+        });
+
+        closeRobuxModal.addEventListener('click', () => {
+            robuxModal.classList.remove('active');
+        });
+
+        // Function បញ្ជូនទិន្ន័យទៅ Telegram
+        function buyRobux(packageType, price) {
+            const tgUser = document.getElementById('tgUsernameInput').value.trim();
+            if(!tgUser) {
+                alert('សូមបញ្ចូល Telegram Username របស់អ្នកជាមុនសិន!');
+                document.getElementById('tgUsernameInput').focus();
+                return;
+            }
+            const message = `សួស្តី Admin, ខ្ញុំចង់ទិញ ${packageType} (${price}) | Telegram Username: ${tgUser}`;
+            const url = `https://t.me/longzzsmmdigitall?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Menu Auth Modal Script
         const menuToggle = document.getElementById('menuToggle');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const closeModal = document.getElementById('closeModal');
+        const authModal = document.getElementById('authModal');
+        const closeAuthModal = document.getElementById('closeAuthModal');
 
         menuToggle.addEventListener('click', () => {
-            modalOverlay.classList.add('active');
+            authModal.classList.add('active');
         });
 
-        closeModal.addEventListener('click', () => {
-            modalOverlay.classList.remove('active');
+        closeAuthModal.addEventListener('click', () => {
+            authModal.classList.remove('active');
         });
 
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                modalOverlay.classList.remove('active');
-            }
-        });
-
-        // មុខងារប្ដូររវាង Tab ចូលគណនី និង បង្កើតគណនី
+        // Tabs
         const loginTabBtn = document.getElementById('loginTabBtn');
         const signupTabBtn = document.getElementById('signupTabBtn');
         const loginForm = document.getElementById('loginForm');
@@ -471,6 +546,12 @@
             signupForm.classList.remove('hidden');
             loginForm.classList.add('hidden');
             modalTitle.innerText = "បង្កើតគណនី";
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === robuxModal) robuxModal.classList.remove('active');
+            if (e.target === authModal) authModal.classList.remove('active');
         });
     </script>
 </body>
